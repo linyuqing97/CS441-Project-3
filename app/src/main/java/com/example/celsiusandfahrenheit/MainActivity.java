@@ -3,11 +3,13 @@ package com.example.celsiusandfahrenheit;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import java.lang.String;
 
 import java.security.spec.ECField;
 
@@ -24,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         final EditText fahrenheit = (EditText) findViewById(R.id.farenheit);
         final EditText celsius = (EditText) findViewById(R.id.celsius);
+        celsius.setInputType(InputType.TYPE_CLASS_NUMBER);
+        fahrenheit.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         slider = (SeekBar)findViewById(R.id.slider);
         slider.setMax(max-min);
@@ -37,13 +41,22 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //Integer enteredProgress = Integer.valueOf(s.toString());
+              //  slider.setProgress();
 
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 try {
-                    slider.setProgress(Integer.parseInt(s.toString()));
+                    String sTemp = s.toString();
+                    System.out.println("S:"+s);
+                    sTemp.replaceAll("[^0-9]", "");
+                    System.out.println(sTemp);
+                    int sProgress=Integer.parseInt(sTemp);
+                    System.out.println(sProgress);
+
+                    slider.setProgress(sProgress);
 
                 }catch (Exception ex){}
 
@@ -74,10 +87,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-              fahrenheit.setText((""+(progress*1.8+32)+" °f"));
+              fahrenheit.setText((""+Math.round(progress*1.8+32)+" °f"));
               celsius.setText(""+progress+" °C");
             }
 
