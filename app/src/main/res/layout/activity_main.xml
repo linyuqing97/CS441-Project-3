@@ -76,30 +76,42 @@
         app:layout_constraintTop_toBottomOf="@+id/slider" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/fahrenheitSymbolTextView"
+        style="@android:style/Widget.DeviceDefault.Light.TextView"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+
         android:layout_marginBottom="8dp"
-        android:text="TextView"
-        android:textAp
-        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        android:text="°f"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/celsius"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/farenheit"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/farenheit"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/celsiusSymbolTextview"
+        android:layout_width="49dp"
+        android:layout_height="35dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:text="C"
+        android:layout_marginTop="4dp"
+        android:text="°C"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/celsius"
-        tools:layout_editor_absoluteY="109dp" />
+        app:layout_constraintTop_toTopOf="@+id/celsius" />
 
 </android.support.constraint.ConstraintLayout>

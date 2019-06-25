@@ -5,10 +5,14 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
 import java.lang.String;
 
 import java.security.spec.ECField;
@@ -19,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     TextView TV;
     SeekBar slider;
     int min=0,max=100,current = 15;
+    boolean machineChangeFlag = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +35,14 @@ public class MainActivity extends AppCompatActivity {
         celsius.setInputType(InputType.TYPE_CLASS_NUMBER);
         fahrenheit.setInputType(InputType.TYPE_CLASS_NUMBER);
 
+        final TextView fahrenheitSymbol =(TextView) findViewById(R.id.fahrenheitSymbolTextView);
+        final TextView celsiusSymbol = (TextView)findViewById(R.id.celsiusSymbolTextview);
+
+
         slider = (SeekBar)findViewById(R.id.slider);
         slider.setMax(max-min);
         slider.setProgress(current-min);
+
 
         celsius.addTextChangedListener(new TextWatcher() {
             @Override
@@ -41,25 +52,26 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //Integer enteredProgress = Integer.valueOf(s.toString());
-              //  slider.setProgress();
 
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                try {
-                    String sTemp = s.toString();
-                    System.out.println("S:"+s);
-                    sTemp.replaceAll("[^0-9]", "");
-                    System.out.println(sTemp);
-                    int sProgress=Integer.parseInt(sTemp);
-                    System.out.println(sProgress);
+                celsiusSymbol.setVisibility(View.VISIBLE);
+                fahrenheitSymbol.setVisibility(View.VISIBLE);
+                if (!machineChangeFlag) {
+                    machineChangeFlag=true;
 
-                    slider.setProgress(sProgress);
+                    if (!s.toString().equals("")) {
+                        double c = Double.parseDouble(s.toString());
+                        long f =Math.round (((9 / 5) * c) + 32);
+                        fahrenheit.setText(String.valueOf(f));
+                    } else {
+                        fahrenheit.setText("");
+                    }
 
-                }catch (Exception ex){}
-
+                }
+                machineChangeFlag=false;
             }
         });
 
@@ -76,10 +88,19 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                try {
-                    slider.setProgress(Integer.parseInt(s.toString()));
-
-                }catch (Exception ex){}
+                celsiusSymbol.setVisibility(View.VISIBLE);
+                fahrenheitSymbol.setVisibility(View.VISIBLE);
+                if (!machineChangeFlag) {
+                    machineChangeFlag=true;
+                    if (!s.toString().equals("")) {
+                        double f = Double.parseDouble(s.toString());
+                        long c = Math.round((f - 32) * 5 / 9);
+                        celsius.setText(String.valueOf(c));
+                    } else {
+                        celsius.setText("");
+                    }
+                }
+                machineChangeFlag=false;
             }
 
         });
@@ -88,11 +109,16 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
+
         slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-              fahrenheit.setText((""+Math.round(progress*1.8+32)+" °f"));
-              celsius.setText(""+progress+" °C");
+                celsiusSymbol.setVisibility(View.VISIBLE);
+                fahrenheitSymbol.setVisibility(View.VISIBLE);
+                fahrenheit.setText((""+Math.round(progress*1.8+32)));
+                celsius.setText(""+progress);
             }
 
             @Override
@@ -105,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             }
+
 
         });
     }
