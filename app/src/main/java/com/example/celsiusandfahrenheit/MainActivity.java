@@ -1,5 +1,6 @@
 package com.example.celsiusandfahrenheit;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView fahrenheitSymbol =(TextView) findViewById(R.id.fahrenheitSymbolTextView);
         final TextView celsiusSymbol = (TextView)findViewById(R.id.celsiusSymbolTextview);
 
+        Button button = (Button)findViewById(R.id.button);
 
         slider = (SeekBar)findViewById(R.id.slider);
         slider.setMax(max-min);
@@ -105,7 +107,16 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent starIntent = new Intent(getApplicationContext(), ResultDisplayActivity.class);
+                    starIntent.putExtra("com.CS441.Project3.key", "" + fahrenheit.getText());
+                    startActivity(starIntent);
 
+                }
+            });
+        
 
 
 
