@@ -25,6 +25,6 @@ Time line:
 
 6/26: Active the second activity, second activity now display farenheit as a result base on user's input.Second activity also display a image.A new button takes user back to the main activity page.
 
-6/28: Added backcolor to every activities, added different images to response user's vacation request, images display on second activity based on user's input temperature. 
+6/28: Added background color to every activities, added different images to response user's vacation request, images display on second activity based on user's inputed temperature. 
 
 
