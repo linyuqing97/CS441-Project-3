@@ -20,10 +20,28 @@ public class ResultDisplayActivity extends AppCompatActivity {
 
         if(getIntent().hasExtra("com.CS441.Project3.key")){
             String temperature = getIntent().getExtras().getString("com.CS441.Project3.key");
-            tv.setText("The current Temperature is "+temperature+"°F");
-            ImageView img = (ImageView)findViewById(R.id.imageView);
 
-            img.setVisibility(View.VISIBLE);
+            ImageView img = (ImageView)findViewById(R.id.imageView);
+            if(Integer.parseInt(temperature)>70 && Integer.parseInt(temperature)<100){
+                img.setImageResource(R.drawable.beach);
+                img.setVisibility(View.VISIBLE);
+                tv.setText("The current Temperature is "+temperature+"°F. Let's go to beach!!");
+            }
+            else if (Integer.parseInt(temperature)<=70 && Integer.parseInt(temperature)>=40 ){
+                img.setImageResource(R.drawable.fall);
+                img.setVisibility(View.VISIBLE);
+                tv.setText("The current Temperature is "+temperature+"°F. Let's go hiking!!!");
+            }
+            else if(Integer.parseInt(temperature)<=40){
+                img.setImageResource(R.drawable.snow);
+                img.setVisibility(View.VISIBLE);
+                tv.setText("The current Temperature is "+temperature+"°F. Snow boarding time!");
+            }
+            else{
+                img.setImageResource(R.drawable.hot);
+                img.setVisibility(View.VISIBLE);
+                tv.setText("The current Temperature is "+temperature+"°F.It's hot!!!Stay at home!");
+            }
         }
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override

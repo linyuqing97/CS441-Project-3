@@ -66,8 +66,9 @@ public class MainActivity extends AppCompatActivity {
 
                     if (!s.toString().equals("")) {
                         double c = Double.parseDouble(s.toString());
-                        long f =Math.round (((9 / 5) * c) + 32);
-                        fahrenheit.setText(String.valueOf(f));
+                        double f =c*1.8+32;
+                        System.out.println("C= "+c+"F= "+f);
+                        fahrenheit.setText(String.valueOf(Math.round(f)));
                     } else {
                         fahrenheit.setText("");
                     }
@@ -116,10 +117,6 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
-        
-
-
-
 
 
 
@@ -128,7 +125,8 @@ public class MainActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 celsiusSymbol.setVisibility(View.VISIBLE);
                 fahrenheitSymbol.setVisibility(View.VISIBLE);
-                fahrenheit.setText((""+Math.round(progress*1.8+32)));
+                double f =progress*1.8+32;
+                fahrenheit.setText(String.valueOf(Math.round(f)));
                 celsius.setText(""+progress);
             }
 
